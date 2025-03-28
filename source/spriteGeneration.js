@@ -22,7 +22,7 @@ function randomSize(minSize, maxSize) {
 export function addSprites() {
 
     for (let i = 0; i < numSprites; i++) {
-        const spriteMaterial = new THREE.SpriteMaterial({ color: colors[Math.floor(Math.random()*colors.length)] });
+        const spriteMaterial = new THREE.SpriteMaterial({ color: colors[Math.floor(Math.random()*colors.length)], depthWrite: false });
         const x = Math.random() * range;
         const y = Math.random() * range;
         const z = Math.random() * range;
