@@ -26,6 +26,7 @@ window.addEventListener('resize', onWindowResize, false);
 //const box = addCube();
 //scene.add(box);
 const sprites = addSprites();
+scene.add(sprites);
 //NOTE>>>>>>>Random sprite color not working properly
 
 //-----UPDATE SCENE-----//
