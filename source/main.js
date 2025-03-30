@@ -4,7 +4,7 @@ import { createScene, createCamera, createRenderer } from './sceneSetup.js';
 import { addControls } from './orbitControls.js';
 import { addCube } from './geometries.js';
 import { addSprites } from './spriteGeneration.js';
-import { animateSprites } from './spriteAnimation.js';
+import { animateSprites, animatePoints } from './spriteAnimation.js';
 import { addPoints } from './pointGeneration.js';
 
 //-----INITIALIZE SCENE----//
@@ -28,17 +28,19 @@ window.addEventListener('resize', onWindowResize, false);
 //const box = addCube();
 //scene.add(box);
 const sprites = addSprites();
-//scene.add(sprites);
+scene.add(sprites);
 //Testing addPoint function
-const newPoints = addPoints();
-scene.add(newPoints);
+//const points = addPoints();
+//scene.add(points);
 
 
 //-----UPDATE SCENE-----//
 function animate() {
     requestAnimationFrame(animate);
     //animateSprites(sprites);
-    camera.rotateY(Math.Pi / 4);
+    animateSprites(sprites, camera, scene);
+    //animatePoints(points);
+    //camera.rotateY(Math.Pi / 4);
     //sprites.rotation.y += Math.Pi / 4;
     orbitControls.update();
     stats.update();
