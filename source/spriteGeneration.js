@@ -44,3 +44,4 @@ export function addSprites() {
     };
 return spriteGroup;
 };
+export { colors };
