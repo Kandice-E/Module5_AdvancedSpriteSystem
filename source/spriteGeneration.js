@@ -11,7 +11,7 @@ const colors = [
     new THREE.Color().setHex(0xcccccc)
 ];
 //Returns a random sprite size between a specified range
-function randomSize(minSize, maxSize) {
+export function randomSize(minSize, maxSize) {
     let size = Math.random() * (maxSize + 1);
     if (size <= minSize)
     {

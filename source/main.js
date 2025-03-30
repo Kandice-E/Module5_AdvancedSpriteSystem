@@ -5,6 +5,7 @@ import { addControls } from './orbitControls.js';
 import { addCube } from './geometries.js';
 import { addSprites } from './spriteGeneration.js';
 import { animateSprites } from './spriteAnimation.js';
+import { addPoints } from './pointGeneration.js';
 
 //-----INITIALIZE SCENE----//
 const scene = createScene();
@@ -27,8 +28,11 @@ window.addEventListener('resize', onWindowResize, false);
 //const box = addCube();
 //scene.add(box);
 const sprites = addSprites();
-scene.add(sprites);
-//NOTE>>>>>>>Random sprite color not working properly
+//scene.add(sprites);
+//Testing addPoint function
+const newPoints = addPoints();
+scene.add(newPoints);
+
 
 //-----UPDATE SCENE-----//
 function animate() {
