@@ -4,6 +4,7 @@ import { createScene, createCamera, createRenderer } from './sceneSetup.js';
 import { addControls } from './orbitControls.js';
 import { addCube } from './geometries.js';
 import { addSprites } from './spriteGeneration.js';
+import { animateSprites } from './spriteAnimation.js';
 
 //-----INITIALIZE SCENE----//
 const scene = createScene();
@@ -32,8 +33,11 @@ scene.add(sprites);
 //-----UPDATE SCENE-----//
 function animate() {
     requestAnimationFrame(animate);
+    //animateSprites(sprites);
+    camera.rotateY(Math.Pi / 4);
+    //sprites.rotation.y += Math.Pi / 4;
     orbitControls.update();
-    renderer.render(scene, camera);
     stats.update();
+    renderer.render(scene, camera);
 };
 animate();
