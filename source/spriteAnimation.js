@@ -57,6 +57,6 @@ export function animatePoints(points) {
         //};
         positions[i] = Math.sin(Date.now() * 0.001 + i) * 5;
     };
-    //points.rotation.y += rotationSpeed;
+    points.rotation.y += rotationSpeed;
     points.geometry.attributes.position.needsUpdate = true;
 };
