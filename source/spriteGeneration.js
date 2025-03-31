@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 
-const numSprites = 100;
+const numSprites = 400;
 const range = 25;
 const spriteGroup = new THREE.Group();
 const colors = [

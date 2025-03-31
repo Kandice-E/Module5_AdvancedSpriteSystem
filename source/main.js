@@ -27,18 +27,18 @@ window.addEventListener('resize', onWindowResize, false);
 //Test Scene setup
 //const box = addCube();
 //scene.add(box);
-const sprites = addSprites();
-scene.add(sprites);
+//const sprites = addSprites();
+//scene.add(sprites);
 //Testing addPoint function
-//const points = addPoints();
-//scene.add(points);
+const points = addPoints();
+scene.add(points);
 
 
 //-----UPDATE SCENE-----//
 function animate() {
     requestAnimationFrame(animate);
     //animateSprites(sprites);
-    animateSprites(sprites, camera, scene);
+    //animateSprites(sprites, camera, scene);
     //animatePoints(points);
     //camera.rotateY(Math.Pi / 4);
     //sprites.rotation.y += Math.Pi / 4;
