@@ -39,7 +39,8 @@ function animate() {
     requestAnimationFrame(animate);
     //animateSprites(sprites);
     //animateSprites(sprites, camera, scene);
-    //animatePoints(points);
+    animatePoints(points);
+    //points.geometry.attributes.position.needsUpdate = true;
     //camera.rotateY(Math.Pi / 4);
     //sprites.rotation.y += Math.Pi / 4;
     orbitControls.update();

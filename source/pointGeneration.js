@@ -24,8 +24,8 @@ export function addPoints() {
     //Create buffer geometry from vertices and create color attribute
     const bufferGeometry = new THREE.BufferGeometry().setFromPoints(vertices);
     bufferGeometry.setAttribute('color', new THREE.BufferAttribute(colorArray, 3, true));
-    bufferGeometry.computeBoundingBox();
-    const boundingBox = bufferGeometry.boundingBox;
+    //bufferGeometry.computeBoundingBox();
+    //const boundingBox = bufferGeometry.boundingBox;
     //Create points material
     const pointMaterial = new THREE.PointsMaterial({
         size: randomSize(0.1, 2),

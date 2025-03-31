@@ -35,7 +35,7 @@ export function animateSprites(sprites, camera, scene) {
 export function animatePoints(points) {
     //const positionAttribute = points.geometry.getAttribute('position');
     //const positionArray = positionAttribute.array;
-    const positions = points.geometry.attributes.positions.array;
+    const positions = points.geometry.getAttribute("position").array;
     for (let i = 0; i < points.length; i+=3){
         //const currentX = positionArray[i];
         //const currentY = positionArray[i+1];
@@ -55,8 +55,8 @@ export function animatePoints(points) {
         //if (currentZ < -250) {
             //points.geometry.attributes.position.array[i+2] = 250;
         //};
-        positions[i] = Math.sin(Date.now() * 0.001 + i) * 5;
+        positions[i] += Math.sin( i * 0.001) * 5;
     };
-    points.rotation.y += rotationSpeed;
-    points.geometry.attributes.position.needsUpdate = true;
+    //points.rotation.y += rotationSpeed;
+    points.geometry.getAttribute("position").needsUpdate = true;
 };
