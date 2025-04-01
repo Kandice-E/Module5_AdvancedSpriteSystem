@@ -1,10 +1,11 @@
 import * as THREE from 'three';
 import { colors, randomSize } from './spriteGeneration';
 
-export function addPoints() {
     const vertices = [];
-    const numSprites = 10000;
-    const range = 100;
+    const numSprites = 30000;
+    const range = 300;
+    const boundingBox = new THREE.Box3(new THREE.Vector3(0,0,0), new THREE.Vector3(300,300,300));
+export function addPoints() {
     //Randomly position sprites
     for ( let i = 0; i < numSprites; i++ ) {
         const x = Math.random() * range;
@@ -24,17 +25,18 @@ export function addPoints() {
     //Create buffer geometry from vertices and create color attribute
     const bufferGeometry = new THREE.BufferGeometry().setFromPoints(vertices);
     bufferGeometry.setAttribute('color', new THREE.BufferAttribute(colorArray, 3, true));
-    //bufferGeometry.computeBoundingBox();
-    //const boundingBox = bufferGeometry.boundingBox;
     //Create points material
     const pointMaterial = new THREE.PointsMaterial({
         size: randomSize(0.1, 2),
         vertexColors: true,
         color: 0xffffff,
-        depthWrite: false
+        depthWrite: false,
+        depthTest: false,
+        sizeAttenuation: true
     });
     //Create instance of point object using buffer geometry and point material
     const points = new THREE.Points(bufferGeometry, pointMaterial);
 
     return points;
 };
+export { boundingBox };
