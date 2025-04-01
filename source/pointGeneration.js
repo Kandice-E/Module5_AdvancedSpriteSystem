@@ -4,7 +4,7 @@ import { colors, randomSize } from './spriteGeneration';
 export function addPoints() {
     const vertices = [];
     const numSprites = 10000;
-    const range = 250;
+    const range = 100;
     //Randomly position sprites
     for ( let i = 0; i < numSprites; i++ ) {
         const x = Math.random() * range;

@@ -27,6 +27,9 @@ window.addEventListener('resize', onWindowResize, false);
 //Test Scene setup
 //const box = addCube();
 //scene.add(box);
+const axesHelper = new THREE.AxesHelper(200);
+axesHelper.setColors(0xff0000, 0x00ff00, 0x0000ff);
+scene.add(axesHelper);
 //const sprites = addSprites();
 //scene.add(sprites);
 //Testing addPoint function
@@ -43,6 +46,13 @@ function animate() {
     //points.geometry.attributes.position.needsUpdate = true;
     //camera.rotateY(Math.Pi / 4);
     //sprites.rotation.y += Math.Pi / 4;
+    //const positions = points.geometry.getAttribute("position").array;
+    //for (let i = 0; i < positions.length; i += 3) {
+        //const angle = performance.now() * 0.001 + i * 0.1;
+        //positions[i] = Math.cos(angle) * 2;
+        //positions[i+2] = Math.sin(angle) * 2;
+    //};
+    //points.geometry.getAttribute("position").needsUpdate = true;
     orbitControls.update();
     stats.update();
     renderer.render(scene, camera);
