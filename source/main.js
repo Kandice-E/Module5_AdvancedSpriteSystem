@@ -5,7 +5,7 @@ import { addControls } from './orbitControls.js';
 import { addCube } from './geometries.js';
 import { addSprites } from './spriteGeneration.js';
 import { animateSprites, animatePoints, rotationSpeed } from './spriteAnimation.js';
-import { addPoints } from './pointGeneration.js';
+import { addPoints, addSFPoints } from './pointGeneration.js';
 
 //-----INITIALIZE SCENE----//
 const scene = createScene();
@@ -37,8 +37,12 @@ axesHelper.setColors(0xff0000, 0x00ff00, 0x0000ff);
 //Testing Sprite object generation
 //const sprites = addSprites();
 //scene.add(sprites);
-const points = addPoints();
-scene.add(points);
+//Testing Point object generation
+//const points = addPoints();
+//scene.add(points);
+//Testing Point object with textures generation
+const points = addSFPoints();
+scene.add(points); 
 
 //Create pivot point to rotate camera with points
 const pivot = new THREE.Object3D();

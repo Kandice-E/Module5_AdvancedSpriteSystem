@@ -39,4 +39,33 @@ export function addPoints() {
 
     return points;
 };
+export function addSFPoints() {
+    //Randomly position sprites
+     for ( let i = 0; i < numSprites; i++ ) {
+        const x = Math.random() * range;
+        const y = Math.random() * range;
+        const z = Math.random() * range;
+        let point = new THREE.Vector3(x, y, z);
+        vertices.push( point );
+    };
+    //Create buffer geometry from vertices and create color attribute
+    const bufferGeometry = new THREE.BufferGeometry().setFromPoints(vertices);
+    //Load Snowflake Texture
+    const texture = new THREE.TextureLoader().load("./assets/snowflake2.png");
+    //Create points material
+    const pointMaterial = new THREE.PointsMaterial({
+        size: randomSize(0.1, 2),
+        vertexColors: false,
+        color: 0xffffff,
+        map: texture,
+        transparent: true,
+        opacity: 0.8,
+        alphaTest: 0.01
+    });
+    //Create instance of point object using buffer geometry and point material
+    const points = new THREE.Points(bufferGeometry, pointMaterial);
+
+    return points;
+};
+
 export { boundingBox };
