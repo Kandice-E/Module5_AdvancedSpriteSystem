@@ -35,10 +35,7 @@ axesHelper.setColors(0xff0000, 0x00ff00, 0x0000ff);
 //scene.add(axesHelper);
 
 //Testing Sprite object generation
-//const sprites = addSprites();
-//scene.add(sprites);
-//Testing Point object generation
-//const points = addPoints();
+//const points = addSprites();
 //scene.add(points);
 //Testing Point object with textures generation
 const points = addSFPoints();
@@ -47,14 +44,15 @@ scene.add(points);
 //Create pivot point to rotate camera with points
 const pivot = new THREE.Object3D();
 pivot.add(camera);
-camera.position.set(250, 250, 250);
+camera.position.set(150, 150, 150);
 
 //-----UPDATE SCENE-----//
 function animate() {
     requestAnimationFrame(animate);
     animatePoints(points);
+    //animateSprites(points);
     pivot.rotation.y += rotationSpeed;
-    camera.lookAt(0,0,0);
+    camera.lookAt(10, 10, 10);
     stats.update();
     renderer.render(scene, camera);
 };

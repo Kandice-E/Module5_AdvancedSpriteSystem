@@ -5,14 +5,14 @@ const rotationSpeed = 0.005;
 export function animateSprites(sprites) {
     for (let i = 0; i < sprites.children.length; i++){
         const child = sprites.children[ i ];
-        child.position.x += ((Math.sin(child.position.y) + (Math.sin(child.position.z)) * 0.01))*0.03;
+        child.position.x += ((Math.sin(child.position.y) + (Math.sin(child.position.z)) * 3))*0.01;
         if (child.position.x > 50) {
             child.position.x = -50;
         };
         if (child.position.x < -50) {
             child.position.x = 50;
         };
-        child.position.z += ((Math.sin(child.position.x) + (Math.sin(child.position.y)) * 0.01))*0.03;
+        child.position.z += ((Math.sin(child.position.x) + (Math.sin(child.position.y)) * 3))*0.01;
         if (child.position.z > 50) {
             child.position.z = -50;
         };
