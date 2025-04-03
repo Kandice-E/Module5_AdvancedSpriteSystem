@@ -7,16 +7,16 @@ const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 
 export function addUserControls(camera, renderer, scene, points) {
-    renderer.domElement.addEventListener('mousedown', (event) => {
+    document.addEventListener('mousedown', (event) => {
         event.preventDefault();
 
         mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
         mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
         raycaster.setFromCamera(mouse, camera);
-
-        const sprites = scene.getObjectByName('points').children;
-        const intersects = raycaster.intersectObjects(sprites, true);
+        //const positions = points.geometry.getAttribute("position").array;
+        //const sprites = scene.getObjectByName('points');
+        const intersects = raycaster.intersectObject(points);
 
         if (intersects.length > 0) {
             selectedSprite = intersects[0].object;

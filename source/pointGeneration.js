@@ -32,7 +32,8 @@ export function addPoints() {
         color: 0xffffff,
         depthWrite: false,
         depthTest: false,
-        sizeAttenuation: true
+        sizeAttenuation: true,
+        //side: DoubleSide
     });
     //Create instance of point object using buffer geometry and point material
     const points = new THREE.Points(bufferGeometry, pointMaterial);

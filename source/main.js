@@ -6,9 +6,11 @@ import { addCube } from './geometries.js';
 import { addSprites } from './spriteGeneration.js';
 import { animateSprites, animatePoints, rotationSpeed } from './spriteAnimation.js';
 import { addPoints, addSFPoints } from './pointGeneration.js';
+import { addUserControls } from './spriteInteraction.js';
+import { GUI } from 'dat.gui';
 
 //-----INITIALIZE SCENE----//
-const scene = createScene();
+let scene = createScene();
 const camera = createCamera();
 const renderer = createRenderer();
 //Add Orbit Controls
@@ -26,33 +28,71 @@ function onWindowResize() {
     renderer.setSize(window.innerWidth, window.innerHeight);
 };
 window.addEventListener('resize', onWindowResize, false);
-//Add Fog
-scene.fog = new THREE.FogExp2(0x000000, 0.008);
 
 //Axes Helper for Testing
 const axesHelper = new THREE.AxesHelper(200);
 axesHelper.setColors(0xff0000, 0x00ff00, 0x0000ff);
 //scene.add(axesHelper);
 
-//Testing Sprite object generation
-//const points = addSprites();
-//scene.add(points);
-//Testing Point object with textures generation
-const points = addSFPoints();
-scene.add(points); 
-
 //Create pivot point to rotate camera with points
 const pivot = new THREE.Object3D();
 pivot.add(camera);
-camera.position.set(150, 150, 150);
+//Initialize camera position for default Sprite Scene
+//camera.position.set(10, 10, 10);
 
+//-----SPRITE SCENE-----//
+const sceneSprites = createScene();
+const sprites = addSprites();
+sceneSprites.add(sprites);
+
+//-----POINTS SCENE-----//
+//Testing Point object with textures generation
+const scenePoints = createScene();
+scenePoints.fog = new THREE.FogExp2(0x000000, 0.008);
+const points = addSFPoints();
+scenePoints.add(points); 
+
+//-----SCENE SWITCHER-----//
+function switchScene() {
+    switch (sceneSwitcher.type) {
+        case 'sceneSprites':
+            scene = sceneSprites;
+            break;
+        case 'scenePoints':
+            scene = scenePoints;
+            break;
+    }
+};
+//-----CREATE GUI-----//
+const gui = new GUI();
+const sceneSwitcher = {
+    type: 'sceneSprites'
+};
+const sceneFolder = gui.addFolder('Scenes');
+sceneFolder.add(sceneSwitcher, 'type', ['sceneSprites', 'scenePoints']).onChange(switchScene);
+
+
+//User interaction code
+//addUserControls(camera, renderer, scene, points);
 //-----UPDATE SCENE-----//
 function animate() {
     requestAnimationFrame(animate);
-    animatePoints(points);
-    //animateSprites(points);
-    pivot.rotation.y += rotationSpeed;
-    camera.lookAt(10, 10, 10);
+    if (scene == sceneSprites) {
+        camera.position.set(0, 0, 0);
+        animateSprites(sprites);
+        //orbitControls.update();
+    }
+    else if (scene == scenePoints) {
+        //orbitControls.enabled = false;
+        camera.position.set(150, 150, 150);
+        animatePoints(points);
+        pivot.rotation.y += rotationSpeed;
+        camera.lookAt(10, 10, 10);
+    }
+    //animatePoints(points);
+    //animateSprites(sprites);
+    //pivot.rotation.y += rotationSpeed;
+    //camera.lookAt(10, 10, 10);
     stats.update();
     renderer.render(scene, camera);
 };
