@@ -1,26 +1,21 @@
 import * as THREE from 'three';
 import Stats from 'three/examples/jsm/libs/stats.module.js';
 import { createScene, createCamera, createRenderer } from './sceneSetup.js';
-import { addControls } from './orbitControls.js';
-import { addCube } from './geometries.js';
 import { addSprites } from './spriteGeneration.js';
 import { animateSprites, animatePoints, rotationSpeed } from './spriteAnimation.js';
-import { addPoints, addSFPoints } from './pointGeneration.js';
+import { addSFPoints } from './pointGeneration.js';
 import { addUserControls } from './spriteInteraction.js';
 import { GUI } from 'dat.gui';
 
 //-----INITIALIZE SCENE----//
 let scene = createScene();
 const camera = createCamera();
+camera.position.set(30, 30, 30);
 const renderer = createRenderer();
-//Add Orbit Controls
-//const orbitControls = addControls(camera, renderer.domElement);
-//orbitControls.target.set(0,0,0);
-//orbitControls.autoRotate = true;
-//orbitControls.autoRotateSpeed = rotationSpeed;
 //Add FPS stats
 const stats = Stats();
 document.body.appendChild(stats.dom);
+
 //-----HANDLE WINDOW RESIZING-----//
 function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
@@ -29,24 +24,14 @@ function onWindowResize() {
 };
 window.addEventListener('resize', onWindowResize, false);
 
-//Axes Helper for Testing
-const axesHelper = new THREE.AxesHelper(200);
-axesHelper.setColors(0xff0000, 0x00ff00, 0x0000ff);
-//scene.add(axesHelper);
-
 //Create pivot point to rotate camera with points
 const pivot = new THREE.Object3D();
-pivot.add(camera);
-//Initialize camera position for default Sprite Scene
-//camera.position.set(10, 10, 10);
 
-//-----SPRITE SCENE-----//
-const sceneSprites = createScene();
+//-----SPRITE SCENE WITH ANIMATIONS AND CONTROLS-----//
+const sceneSpritesAnimation = createScene();
 const sprites = addSprites();
-sceneSprites.add(sprites);
-
+sceneSpritesAnimation.add(sprites);
 //-----POINTS SCENE-----//
-//Testing Point object with textures generation
 const scenePoints = createScene();
 scenePoints.fog = new THREE.FogExp2(0x000000, 0.008);
 const points = addSFPoints();
@@ -55,44 +40,50 @@ scenePoints.add(points);
 //-----SCENE SWITCHER-----//
 function switchScene() {
     switch (sceneSwitcher.type) {
-        case 'sceneSprites':
-            scene = sceneSprites;
+        case 'sceneSpritesAnimation':
+            scene = sceneSpritesAnimation;
+            resetCameraForSceneSpritesAnimation();
             break;
         case 'scenePoints':
             scene = scenePoints;
             break;
     }
+    renderer.render(scene, camera); // Ensure the renderer updates the scene
 };
+
+// Helper function to reset camera for Sprite Animation Scene
+function resetCameraForSceneSpritesAnimation() {
+    pivot.remove(camera);
+    camera.position.set(30, 30, 30);
+    camera.updateProjectionMatrix();
+}
+
 //-----CREATE GUI-----//
 const gui = new GUI();
 const sceneSwitcher = {
-    type: 'sceneSprites'
+    type: 'sceneSpritesAnimation'
 };
 const sceneFolder = gui.addFolder('Scenes');
-sceneFolder.add(sceneSwitcher, 'type', ['sceneSprites', 'scenePoints']).onChange(switchScene);
+sceneFolder.add(sceneSwitcher, 'type', ['sceneSpritesAnimation', 'scenePoints']).onChange(switchScene);
+scene = sceneSpritesAnimation; // Set the initial scene to sceneSpritesAnimation
 
-
-//User interaction code
-//addUserControls(camera, renderer, scene, points);
 //-----UPDATE SCENE-----//
 function animate() {
     requestAnimationFrame(animate);
-    if (scene == sceneSprites) {
-        camera.position.set(0, 0, 0);
+    //Adjusts settings for 100 sprite scene with animations
+    if (scene === sceneSpritesAnimation) {
         animateSprites(sprites);
-        //orbitControls.update();
+        addUserControls(camera, scene, scenePoints, sceneSpritesAnimation, sprites);
     }
-    else if (scene == scenePoints) {
-        //orbitControls.enabled = false;
+    //Adjusts settings for 30,000 sprites scene
+    else if (scene === scenePoints) {
+        pivot.add(camera);  
         camera.position.set(150, 150, 150);
         animatePoints(points);
         pivot.rotation.y += rotationSpeed;
         camera.lookAt(10, 10, 10);
+        camera.updateProjectionMatrix();
     }
-    //animatePoints(points);
-    //animateSprites(sprites);
-    //pivot.rotation.y += rotationSpeed;
-    //camera.lookAt(10, 10, 10);
     stats.update();
     renderer.render(scene, camera);
 };

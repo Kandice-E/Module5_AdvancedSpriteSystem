@@ -1,10 +1,10 @@
 import * as THREE from 'three';
 
 const numSprites = 100;
-const range = 25;
+const range = 30;
 const spriteGroup = new THREE.Group();
 const colors = [
-    new THREE.Color().setHex(0xff0000),
+    new THREE.Color().setHex(0xff00ff),
     new THREE.Color().setHex(0x00ff00),
     new THREE.Color().setHex(0x0000ff),
     new THREE.Color().setHex(0xffffff),
@@ -24,7 +24,7 @@ export function randomSize(minSize, maxSize) {
     else
     return size;
 };
-
+//Create and group sprites together
 export function addSprites() {
 
     for (let i = 0; i < numSprites; i++) {

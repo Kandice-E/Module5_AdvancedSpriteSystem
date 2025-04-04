@@ -20,8 +20,7 @@ export function animateSprites(sprites) {
             child.position.z = 50;
         };
     };
-    sprites.rotation.y += rotationSpeed;
-
+    sprites.rotation.y += rotationSpeed / 2;
 };
 export function animatePoints(points) {
     const positions = points.geometry.getAttribute("position").array;

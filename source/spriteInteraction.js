@@ -1,23 +1,21 @@
 import * as THREE from 'three';
 
 let selectedSprite = null;
-let spriteSpeed = 0.01;
-
+let spriteSpeed = 0.001;
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 
-export function addUserControls(camera, renderer, scene, points) {
-    document.addEventListener('mousedown', (event) => {
-        event.preventDefault();
-
-        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-
+export function addUserControls(camera, scene, scenePoints, sprites) {
+    //Check for scene selection before proceeding with event listeners
+    if (scene == scenePoints) {
+        return;
+    }
+    //Mouse controls for selecting, highlighting, and unselecting a sprite
+    document.addEventListener('mousedown', eventMouse => {
+        mouse.x = (eventMouse.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(eventMouse.clientY / window.innerHeight) * 2 + 1;
         raycaster.setFromCamera(mouse, camera);
-        //const positions = points.geometry.getAttribute("position").array;
-        //const sprites = scene.getObjectByName('points');
-        const intersects = raycaster.intersectObject(points);
-
+        const intersects = raycaster.intersectObject(sprites, true);
         if (intersects.length > 0) {
             selectedSprite = intersects[0].object;
 
@@ -30,10 +28,10 @@ export function addUserControls(camera, renderer, scene, points) {
             }
         }
     });
-
-    document.addEventListener('keydown', (event) => {
+    //Key controls for moving a selected sprite along the x and z axes
+    document.addEventListener('keydown', eventKeys => {
         if (selectedSprite) {
-            switch (event.key) {
+            switch (eventKeys.key) {
                 case 'w':
                     selectedSprite.position.z -= spriteSpeed;
                     break;
