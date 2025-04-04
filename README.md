@@ -9,7 +9,12 @@ PROJECT OVERVIEW
 
 GETTING STARTED 
 
--TO VIEW THE APPLICATION: navigate to this section of my github page:
+-TO VIEW THE APPLICATION: 
+
+    -Navigate to this section of my github page: https://kandice-e.github.io/AdvancedSpriteSystem/.
+    -Users can refresh the page to see different sized sprites or points generated.
+    -The controls in the top right corner can be used to switch between scenes.
+    -Users can click on a sprite in the first scene and change the position using the WASD keys.
 
 -TO RUN THE APP LOCALLY:
 
